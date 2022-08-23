@@ -1,4 +1,4 @@
-# CSV - JSON парсер
+# Задача 1: CSV - JSON парсер
 
 ## Описание
 Конвертер CSV и XML в формат JSON, а так же парсер JSON файлов в Java классы.
@@ -77,5 +77,45 @@ Type listType = new TypeToken<List<T>>() {}.getType();
 String json = gson.toJson(list, listType);
 ```
 Далее записан полученный JSON в файл с помощью метода `writeString()`.
+
+
+# Задача 2: XML - JSON парсер
+
+## Описание
+В данной задаче вам предстоит произвести запись в файл JSON объекта, полученного из XML файла.
+
+Данную задачу выполняйте в рамках созданного в предыдущей задаче проекта.
+
+В качестве исходной информации создайте файл `data.xml` со следующим содержимым (поместите этот файл в корень проекта):
+```xml
+<staff>
+    <employee>
+        <id>1</id>
+        <firstName>John</firstName>
+        <lastName>Smith</lastName>
+        <country>USA</country>
+        <age>25</age>
+    </employee>
+    <employee>
+        <id>2</id>
+        <firstName>Inav</firstName>
+        <lastName>Petrov</lastName>
+        <country>RU</country>
+        <age>23</age>
+    </employee>
+</staff>
+```
+В резyльтате работы программы в корне проекта должен появиться файл `data2.json` с содержимым, аналогичным json-файлу из предыдущей задачи.
+
+## Реализация
+Для получения списка сотрудников из XML документа используется метод `parseXML()`:
+```java
+List<Employee> list = parseXML("data.xml");
+```
+При реализации метода `parseXML()` необходимо получить экземпляр класса `Document` с использованием `DocumentBuilderFactory` и `DocumentBuilder` через метод `parse()`. Далее получаем из объекта `Document` корневой узел `Node` с помощью метода `getDocumentElement()`. Из корневого узла извлекается список узлов `NodeList` с помощью метода `getChildNodes()`. По списку узлов и получен из каждого из них `Element`. У элементов получены значения, с помощью которых создан экземпляр класса `Employee`. Так как элементов может быть несколько, организован цикле. Метод `parseXML()` должен возвращет список сотрудников. 
+
+С помощью ранее написанного метода `listToJson()` преобразован список в JSON и записан в файл c помощью метода `writeString()`.
+
+
 
 ## [Задание из курсов java-разработчик](https://github.com/netology-code/jd-homeworks/blob/master/special_files/task1/README.md)
